@@ -1,5 +1,5 @@
 public class Planet {
-	
+
 	public double xxPos; public double yyPos; 
 	public double xxVel; public double yyVel;
 	public double mass;
@@ -85,7 +85,13 @@ public class Planet {
 		xxVel += dt * ax;
 		yyVel += dt * ay;
 		xxPos += dt*xxVel;
-		yyPos += dt*yyVel;
+		yyPos += dt*yyVel;	
+	}	
 
+	public void draw() {
+		String imgFilePath = "images/" + imgFileName;
+		StdDraw.picture(xxPos, yyPos, imgFilePath);
+		StdDraw.show();
 	}
+	
 }
