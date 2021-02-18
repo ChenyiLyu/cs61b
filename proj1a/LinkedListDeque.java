@@ -27,10 +27,30 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
+    /* Create a deep copy of other. */
     public LinkedListDeque(LinkedListDeque other) {
         sentinel = other.sentinel;
-        size = other.size;
+        sentinel.prev = other.sentinel;
+        sentinel.next = other.sentinel;
+        size = 0;
+        IntNode ptr = other.sentinel;
+
+        IntNode nodesCopy = dequeCopyHelper(other, ptr);
+        sentinel.next = nodesCopy;
+        nodesCopy.prev = sentinel;
     }
+
+    /* Creat a deep copy of IntNode nodes.next */
+    private IntNode dequeCopyHelper(LinkedListDeque other, IntNode nodes) {
+        if (nodes.next == other.sentinel) {
+            return sentinel;
+        } else if (nodes.next.next == sentinel) {
+
+        }
+        return new IntNode(nodes, nodes.next.item, dequeCopyHelper(other, nodes.next));
+    }
+
+
     /* Returns the number of items in the deque. */
     public int size() {
         return size;
@@ -98,7 +118,6 @@ public class LinkedListDeque<T> {
     }
 
     private T getRecurHelper(int index, IntNode lst) {
-
         if (index == 0) {
             return lst.item;
         } else {

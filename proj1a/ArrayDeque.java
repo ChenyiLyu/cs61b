@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
     public void addLast(T x) {
         nextLast = checkIfSwap(nextLast);
         items[nextLast] = x;
-        size +=1;
+        size += 1;
         nextLast += 1;
     }
 
@@ -40,7 +40,7 @@ public class ArrayDeque<T> {
     public void printDeque() {
         if (nextFirst < nextLast) {
             T[] tempA = (T[]) new Object[nextLast - nextFirst - 1];
-            System.arraycopy(items, nextFirst+1, tempA, 0, tempA.length);
+            System.arraycopy(items, nextFirst + 1, tempA, 0, tempA.length);
             for (T element : tempA) {
                 System.out.println(element);
             }
@@ -64,7 +64,7 @@ public class ArrayDeque<T> {
         T temp = items[nextFirst + 1];
         items[nextFirst + 1] = null;
         size -= 1;
-        nextFirst +=1;
+        nextFirst += 1;
         return temp;
     }
 
@@ -93,7 +93,7 @@ public class ArrayDeque<T> {
             return items.length - 1;
         } else if (i == items.length) {
             return 0;
-        };
+        }
         return i;
     }
 }
