@@ -71,11 +71,27 @@ public class DebugExercise2 {
      *  the result should be 57.
      * */
     public static int sumOfElementwiseMaxes(int[] a, int[] b) {
-        int[] maxes = arrayMax(a, b);
-        int sumofMaxes = arraySum(maxes);
+        int[] maxes = arrayMaxCL(a, b);
+        int sumofMaxes = arraySumCL(maxes);
         return sumofMaxes;
     }
+    /** Write a updated version of arrayMax to fix the issue.*/
+    public static int[] arrayMaxCL(int[] a, int[] b) {
+        int[] temp = new int[a.length];
+        for (int i = 0; i < a.length; i++) {
+            temp[i] = Math.max(a[i],b[i]);
+        }
+        return temp;
+    }
 
+    /** Write a updated version of arrayMax to fix the issue.*/
+    public static int arraySumCL(int[] a) {
+        int results = 0;
+        for (int i = 0; i < a.length; i++) {
+            results += a[i];
+        }
+        return results;
+    }
 
     public static void main(String[] args) {
         int[] a = {1, 11, -1, -11};
