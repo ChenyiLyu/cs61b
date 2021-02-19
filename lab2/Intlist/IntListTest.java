@@ -78,4 +78,19 @@ public class IntListTest {
 
     }
 
+    @Test
+    public void testRecurCatenate() {
+        IntList A = IntList.of(1, 2, 3);
+        IntList B = IntList.of(4, 5, 6);
+        IntList exp = IntList.of(1, 2, 3, 4, 5, 6);
+        assertEquals(exp, IntList.recurCatenate(A, B));
+        assertEquals(IntList.of(1, 2, 3), A);
+
+        IntList A2 = null;
+        IntList B2 = IntList.of(4, 5, 6);
+        IntList exp2 = B2;
+        assertEquals(exp2, IntList.recurCatenate(A2, B2));
+
+    }
+
 }

@@ -21,26 +21,24 @@ public class LinkedListDeque<T> {
     private int size;
 
     public LinkedListDeque() {
-        sentinel = new IntNode(null, null, null);
+        sentinel = new IntNode(null, null,null); // 这里在构建IntNode时，写成一个input value更为简洁
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
     }
 
     /* Create a deep copy of other. */
-    public LinkedListDeque(LinkedListDeque other) {
-        sentinel = other.sentinel;
-        sentinel.prev = other.sentinel;
-        sentinel.next = other.sentinel;
+    public LinkedListDeque(LinkedListDeque<T> other) {
+        sentinel = new IntNode(null, null,null);
+        sentinel.prev = sentinel;
+        sentinel.next = sentinel;
         size = 0;
         IntNode ptr = other.sentinel;
-
-        IntNode nodesCopy = dequeCopyHelper(other, ptr);
-        sentinel.next = nodesCopy;
-        nodesCopy.prev = sentinel;
     }
 
-    /* Creat a deep copy of IntNode nodes.next */
+    //addLast((T) other.get(i))
+    //garbage 不需要recurseion//
+    /** Creat a deep copy of IntNode nodes.next
     private IntNode dequeCopyHelper(LinkedListDeque other, IntNode nodes) {
         if (nodes.next == other.sentinel) {
             return sentinel;
@@ -49,7 +47,7 @@ public class LinkedListDeque<T> {
         }
         return new IntNode(nodes, nodes.next.item, dequeCopyHelper(other, nodes.next));
     }
-
+     */
 
     /* Returns the number of items in the deque. */
     public int size() {

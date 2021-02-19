@@ -79,10 +79,11 @@ public class IntList {
      * Returns a list consisting of the elements of A followed by the
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
-
     public static IntList dcatenate(IntList A, IntList B) {
-        if (A == null || B == null) {
-            return null;
+        if (A == null) {
+            return B;
+        } else if (B == null) {
+            return A;
         }
         IntList pA = A;
         while (pA.rest != null) {
@@ -97,8 +98,10 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        if (A == null || B == null) {
-            return null;
+        if (A == null) {
+            return B;
+        } else if (B == null) {
+            return A;
         }
         IntList catList = new IntList(A.first, null);
         IntList ptr = catList;
@@ -114,6 +117,31 @@ public class IntList {
         }
         ptr.rest = B;
         return catList;
+    }
+
+    /**
+     * Returns a list consisting of the elements of A followed by the
+     * * elements of B.  May NOT modify items of A.  Use 'new'.
+     */
+    public static IntList recurCatenate(IntList A, IntList B) {
+        if (A == null) {
+            return B;
+        }
+        IntList copyA = recurCatenateHelper(A);
+        IntList copyB = recurCatenateHelper(B);
+        IntList ptr = copyA;
+        while (ptr.rest != null) {
+            ptr = ptr.rest;
+        }
+        ptr.rest = copyB;
+        return  copyA;
+    }
+
+    private static IntList recurCatenateHelper(IntList lst) {
+        if (lst == null) {
+            return null;
+        }
+        return new IntList(lst.first, recurCatenateHelper(lst.rest));
     }
 
 
