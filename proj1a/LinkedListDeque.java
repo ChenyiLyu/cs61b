@@ -66,12 +66,14 @@ public class LinkedListDeque<T> {
     /* Adds an item of type T to the front of deque. */
     public void addFirst(T item) {
         sentinel.next = new IntNode(sentinel, item, sentinel.next);
+        sentinel.next.next.prev = sentinel.next;
         size += 1;
     }
 
     /* Adds an item of type T to the back of deque. */
     public void addLast(T item) {
         sentinel.prev = new IntNode(sentinel.prev, item, sentinel);
+        sentinel.prev.prev.next = sentinel.prev;
         size += 1;
     }
 
