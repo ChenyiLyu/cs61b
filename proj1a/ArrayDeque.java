@@ -22,21 +22,31 @@ public class ArrayDeque<T> {
 
     public static <T> void main(String[] args) {
         ArrayDeque ad = new ArrayDeque();
-        ad.addFirst(1);
-        ad.addFirst(2);
-        ad.addFirst(3);
-        ad.addFirst(4);
-        ad.addFirst(5);
-        ad.addFirst(6);
-        ad.addFirst(7);
+        ad.addLast(0);
+        ad.addLast(1);
+        ad.get(1);
+        ad.addLast(3);
+        ad.get(2);
+        ad.removeLast();
+        ad.addLast(6);
+        ad.removeFirst();
+        ad.addLast(8);
+        ad.get(1);
+        ad.addLast(10);
+        ad.addLast(11);
+        ad.get(4);
+        ad.get(0);
+        ad.get(0);
+        ad.get(4);
+        ad.removeLast();
+        ad.addLast(17);
+        ad.addLast(18);
+        ad.addFirst(19);
+        ad.addLast(20);
+        ad.removeLast();
+        ad.addLast(22);
 
-        ad.addFirst(8);
-
-        ad.addFirst(9);
-
-        ad.addFirst(5);
-        ad.addFirst(10);
-        T x = (T) ad.get(1);
+        T x = (T) ad.get(-1);
         System.out.println(x);
         ad.size();
     }
@@ -86,7 +96,7 @@ public class ArrayDeque<T> {
 
     /* Get the item in the given index. */
     public T get(int index) {
-        if (index >= size) {
+        if (index >= size || index < 0) {
             return null;
         }
         index = nextFirst + 1 + index;
@@ -100,7 +110,6 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        nextFirst = checkIfSwap(nextFirst);
         T temp = items[checkIfSwap(nextFirst+1)];
         items[checkIfSwap(nextFirst+1)] = null;
         size -= 1;
@@ -112,11 +121,10 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        nextLast = checkIfSwap(nextLast);
         T temp = items[checkIfSwap(nextLast - 1)];
         items[checkIfSwap(nextLast - 1)] = null;
         size -= 1;
-        nextLast -= 1;
+        nextLast = checkIfSwap(nextLast - 1);
         return temp;
     }
 
