@@ -1,15 +1,21 @@
 /**
  * LinkedListDeque
  * @author  Chenyi 02/17/2021
+ *
+ * Sequence linked list that can be extended/contracted from both ends.
+ *
+ * note to me -
+ * 1. null null null
+ * 2. When using Java Generics, dont add cast T for subclass.
  */
 
 public class LinkedListDeque<T> {
     private class IntNode {
-        public T item;
-        public IntNode prev;
-        public IntNode next;
+        private T item;
+        private IntNode prev;
+        private IntNode next;
 
-        public IntNode(IntNode prevNode, T i, IntNode nextNode) {
+        IntNode(IntNode prevNode, T i, IntNode nextNode) {
             prev = prevNode;
             this.item = i;
             next = nextNode;
@@ -21,23 +27,26 @@ public class LinkedListDeque<T> {
     private int size;
 
     public LinkedListDeque() {
-        sentinel = new IntNode(null, null,null); // 这里在构建IntNode时，写成一个input value更为简洁
+        sentinel = new IntNode(null, null, null); // 这里在构建IntNode时，写成一个input value更为简洁
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
     }
 
     /* Create a deep copy of other. */
-    public LinkedListDeque(LinkedListDeque<T> other) {
-        sentinel = new IntNode(null, null,null);
+    // TODO
+    public LinkedListDeque(LinkedListDeque other) {
+        sentinel = new IntNode(null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
-        IntNode ptr = other.sentinel;
+        for (int i = 0; i < other.size(); i++) {
+            addFirst((T) other.get(i));
+        }
     }
 
     //addLast((T) other.get(i))
-    //garbage 不需要recurseion//
+    //garbage 不需要recursion//
     /** Creat a deep copy of IntNode nodes.next
     private IntNode dequeCopyHelper(LinkedListDeque other, IntNode nodes) {
         if (nodes.next == other.sentinel) {
@@ -80,6 +89,9 @@ public class LinkedListDeque<T> {
 
     /* Get item at given index. */
     public T get(int index) {
+        if (index >= size) {
+            return null;
+        }
         int i = 0;
         IntNode p = sentinel.next;
         while (i < index) {
@@ -96,6 +108,7 @@ public class LinkedListDeque<T> {
         }
         T removed = sentinel.next.item;
         sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
         size -= 1;
         return removed;
     }
@@ -107,11 +120,16 @@ public class LinkedListDeque<T> {
         }
         T removed = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
         size -= 1;
         return removed;
     }
 
+    /* Recursion vision of get method. */
     public T getRecursive(int index) {
+        if (index >= size) {
+            return null;
+        }
         return getRecurHelper(index, sentinel.next);
     }
 
@@ -128,7 +146,3 @@ public class LinkedListDeque<T> {
 
 }
 
-/**
- * java generics subclass 不用再declare一遍
- * null null null
- */

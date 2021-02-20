@@ -1,15 +1,27 @@
+/**
+ * ArrayDeque
+ * @auther  Chenyi Lyu 02/17/2021 debug 02/19/2021
+ *
+ * note to me -
+ * */
+
 public class ArrayDeque<T> {
     private T[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
 
-
+    /* Create an empty array of length = 8 as default. */
     public ArrayDeque() {
         T[] items = (T[]) new Object[8];
         size = 0;
         nextFirst = 4;
         nextLast = 5;
+    }
+
+    /* Create an deep array copy of ArrayDeque. */
+    public ArrayDeque(ArrayDeque other) {
+        // TODO
     }
 
     /* Return the size of ArrayDeque. */
