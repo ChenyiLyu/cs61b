@@ -16,15 +16,13 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
-        nextFirst = 4;
-        nextLast = 5;
+        nextFirst = -1;
+        nextLast = 0;
     }
 
 //    public static void main(String[] args) {
 //        ArrayDeque ad = new ArrayDeque();
-//        ad.addFirst(0);
-//        ad.addFirst(1);
-//        ad.removeFirst();
+//        System.out.println(ad.get(4));
 //        ad.size();
 //    }
 
@@ -88,8 +86,8 @@ public class ArrayDeque<T> {
             return null;
         }
         nextFirst = checkIfSwap(nextFirst);
-        T temp = items[nextFirst + 1];
-        items[nextFirst + 1] = null;
+        T temp = items[checkIfSwap(nextFirst+1)];
+        items[checkIfSwap(nextFirst+1)] = null;
         size -= 1;
         nextFirst += 1;
         return temp;
@@ -100,8 +98,8 @@ public class ArrayDeque<T> {
             return null;
         }
         nextLast = checkIfSwap(nextLast);
-        T temp = items[nextLast - 1];
-        items[nextLast - 1] = null;
+        T temp = items[checkIfSwap(nextLast - 1)];
+        items[checkIfSwap(nextLast - 1)] = null;
         size -= 1;
         nextLast -= 1;
         return temp;
@@ -119,8 +117,8 @@ public class ArrayDeque<T> {
         System.arraycopy(items, 0, a, 0, i);
         System.arraycopy(items, i, a, i + (int) newSize - size, size - i);
         items = a;
-        nextFirst = i;
-        nextLast = i + (int) newSize - size - 1;
+        nextLast = i;
+        nextFirst = i + (int) newSize - size - 1;
         return;
     }
 
