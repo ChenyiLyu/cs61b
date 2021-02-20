@@ -20,36 +20,23 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    public static <T> void main(String[] args) {
-        ArrayDeque ad = new ArrayDeque();
-        ad.addLast(0);
-        ad.addLast(1);
-        ad.get(1);
-        ad.addLast(3);
-        ad.get(2);
-        ad.removeLast();
-        ad.addLast(6);
-        ad.removeFirst();
-        ad.addLast(8);
-        ad.get(1);
-        ad.addLast(10);
-        ad.addLast(11);
-        ad.get(4);
-        ad.get(0);
-        ad.get(0);
-        ad.get(4);
-        ad.removeLast();
-        ad.addLast(17);
-        ad.addLast(18);
-        ad.addFirst(19);
-        ad.addLast(20);
-        ad.removeLast();
-        ad.addLast(22);
-
-        T x = (T) ad.get(-1);
-        System.out.println(x);
-        ad.size();
-    }
+//    public static <T> void main(String[] args) {
+//        ArrayDeque ad = new ArrayDeque();
+//        ad.addLast(1);
+//
+//        ad.addFirst(4);
+//        ad.removeFirst();
+//        ad.removeFirst();
+//        ad.addLast(9);
+//        ad.removeFirst();
+//        ad.addLast(20);
+//        ad.removeLast();
+//        ad.addLast(22);
+//
+//        T x = (T) ad.get(-1);
+//        System.out.println(x);
+//        ad.size();
+//    }
 
 /*    *//* Create an deep array copy of ArrayDeque. *//*
     public ArrayDeque(ArrayDeque other) {
@@ -110,8 +97,8 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T temp = items[checkIfSwap(nextFirst+1)];
-        items[checkIfSwap(nextFirst+1)] = null;
+        T temp = items[checkIfSwap(nextFirst + 1)];
+        items[checkIfSwap(nextFirst + 1)] = null;
         size -= 1;
         nextFirst += 1;
         return temp;
@@ -134,20 +121,19 @@ public class ArrayDeque<T> {
     }
 
     private void resize() {
-        double REFACTOR = 1.5;
         double newSize = size + 2;
         T[] a = (T[]) new Object[(int) newSize];
         System.arraycopy(items, 0, a, 0, nextLast);
         System.arraycopy(items, nextLast + 1, a, nextLast + (int) newSize - size, size - nextLast);
         items = a;
-        nextFirst = nextLast + (int) newSize - size -1;
+        nextFirst = nextLast + (int) newSize - size - 1;
         return;
     }
 
     private int checkIfSwap(int i) {
         if (i == -1) {
             return items.length - 1;
-        } else if (i == items.length) {
+        } else if (i >= items.length) {
             return 0;
         }
         return i;
