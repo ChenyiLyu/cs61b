@@ -20,24 +20,18 @@ public class ArrayDeque<T> {
         nextLast = 5;
     }
 
-    public static void main(String[] args) {
-        ArrayDeque ad = new ArrayDeque();
-        ad.addFirst(0);
-        ad.addFirst(1);
-        ad.addLast(2);
-        ad.addFirst(3);
-        ad.addFirst(4);
-        ad.addLast(5);
-        ad.addLast(6);
-        ad.addLast(6);
-        ad.addLast(6);
-        ad.size();
-    }
+//    public static void main(String[] args) {
+//        ArrayDeque ad = new ArrayDeque();
+//        ad.addFirst(0);
+//        ad.addFirst(1);
+//        ad.removeFirst();
+//        ad.size();
+//    }
 
-    /* Create an deep array copy of ArrayDeque. */
+/*    *//* Create an deep array copy of ArrayDeque. *//*
     public ArrayDeque(ArrayDeque other) {
         // TODO
-    }
+    }*/
 
     /* Return the size of ArrayDeque. */
     public int size() {
@@ -106,7 +100,7 @@ public class ArrayDeque<T> {
             return null;
         }
         nextLast = checkIfSwap(nextLast);
-        T temp = items[nextLast + 1];
+        T temp = items[nextLast - 1];
         items[nextLast - 1] = null;
         size -= 1;
         nextLast -= 1;
@@ -139,3 +133,4 @@ public class ArrayDeque<T> {
         return i;
     }
 }
+

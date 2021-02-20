@@ -38,9 +38,10 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    /* Create a deep copy of other. */
+/* Create a deep copy of other. */
+
 //    why is this called the second constructor?
-    public LinkedListDeque(LinkedListDeque other) {
+/*    public LinkedListDeque(LinkedListDeque other) {
         sentinel = new IntNode(null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
@@ -48,7 +49,8 @@ public class LinkedListDeque<T> {
         for (int i = 0; i < other.size(); i++) {
             addFirst((T) other.get(i));
         }
-    }
+    }*/
+
 
 //    addLast((T) other.get(i))
 //    garbage 不需要recursion//
