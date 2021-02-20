@@ -7,6 +7,11 @@
  * note to me -
  * 1. null null null
  * 2. When using Java Generics, dont add cast T for subclass.
+ * 3. add/romove method. Since this is the double ended linked list, you
+ * have to make sure the nodes that both ends linked to are connected to
+ * this new node.
+ * 4. get to know the time distr of writing a program - 20% first + 80%
+ * rest for debugging.
  */
 
 public class LinkedListDeque<T> {
@@ -34,7 +39,7 @@ public class LinkedListDeque<T> {
     }
 
     /* Create a deep copy of other. */
-    // TODO
+//    why is this called the second constructor?
     public LinkedListDeque(LinkedListDeque other) {
         sentinel = new IntNode(null, null, null);
         sentinel.prev = sentinel;
@@ -45,18 +50,18 @@ public class LinkedListDeque<T> {
         }
     }
 
-    //addLast((T) other.get(i))
-    //garbage 不需要recursion//
-    /** Creat a deep copy of IntNode nodes.next
-    private IntNode dequeCopyHelper(LinkedListDeque other, IntNode nodes) {
-        if (nodes.next == other.sentinel) {
-            return sentinel;
-        } else if (nodes.next.next == sentinel) {
-
-        }
-        return new IntNode(nodes, nodes.next.item, dequeCopyHelper(other, nodes.next));
-    }
-     */
+//    addLast((T) other.get(i))
+//    garbage 不需要recursion//
+//    ** Creat a deep copy of IntNode nodes.next
+//    private IntNode dequeCopyHelper(LinkedListDeque other, IntNode nodes) {
+//        if (nodes.next == other.sentinel) {
+//            return sentinel;
+//        } else if (nodes.next.next == sentinel) {
+//
+//        }
+//        return new IntNode(nodes, nodes.next.item, dequeCopyHelper(other, nodes.next));
+//    }
+//
 
     /* Returns the number of items in the deque. */
     public int size() {
