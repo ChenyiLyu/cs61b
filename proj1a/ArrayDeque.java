@@ -1,7 +1,8 @@
 /**
  * ArrayDeque
- * @auther  Chenyi Lyu 02/17/2021 debug 02/19/2021
  *
+ * @auther  Chenyi Lyu 02/17/2021 debug 02/19/2021
+ * @Rule:
  * note to me -
  * */
 
@@ -13,7 +14,7 @@ public class ArrayDeque<T> {
 
     /* Create an empty array of length = 8 as default. */
     public ArrayDeque() {
-        T[] items = (T[]) new Object[8];
+        items = (T[]) new Object[8];
         size = 0;
         nextFirst = 4;
         nextLast = 5;
@@ -31,15 +32,15 @@ public class ArrayDeque<T> {
 
     /* Add element to the front of ArrayDeque. */
     public void addFirst(T x) {
-//        nextFirst = checkIfSwap(nextFirst);
-//        resize(nextFirst);
+        nextFirst = checkIfSwap(nextFirst);
+        resize(nextFirst);
         items[nextFirst] = x;
         size += 1;
         nextFirst -= 1;
     }
 
     public void addLast(T x) {
-//        nextLast = checkIfSwap(nextLast);
+        nextLast = checkIfSwap(nextLast);
         items[nextLast] = x;
         size += 1;
         nextLast += 1;
@@ -72,7 +73,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-//        nextFirst = checkIfSwap(nextFirst);
+        nextFirst = checkIfSwap(nextFirst);
         T temp = items[nextFirst + 1];
         items[nextFirst + 1] = null;
         size -= 1;
@@ -81,7 +82,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-//        nextLast = checkIfSwap(nextLast);
+        nextLast = checkIfSwap(nextLast);
         T temp = items[nextLast + 1];
         items[nextLast - 1] = null;
         size -= 1;
