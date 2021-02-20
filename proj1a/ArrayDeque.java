@@ -20,11 +20,26 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-//    public static void main(String[] args) {
-//        ArrayDeque ad = new ArrayDeque();
-//        System.out.println(ad.get(4));
-//        ad.size();
-//    }
+    public static <T> void main(String[] args) {
+        ArrayDeque ad = new ArrayDeque();
+        ad.addFirst(1);
+        ad.addFirst(2);
+        ad.addFirst(3);
+        ad.addFirst(4);
+        ad.addFirst(5);
+        ad.addFirst(6);
+        ad.addFirst(7);
+
+        ad.addFirst(8);
+
+        ad.addFirst(9);
+
+        ad.addFirst(5);
+        ad.addFirst(10);
+        T x = (T) ad.get(1);
+        System.out.println(x);
+        ad.size();
+    }
 
 /*    *//* Create an deep array copy of ArrayDeque. *//*
     public ArrayDeque(ArrayDeque other) {
@@ -38,8 +53,8 @@ public class ArrayDeque<T> {
 
     /* Add element to the front of ArrayDeque. */public void addFirst(T x) {
         nextFirst = checkIfSwap(nextFirst);
-        if (ifResize(nextFirst)) {
-            resize(nextFirst);
+        if (ifResize()) {
+            resize();
         }
         items[nextFirst] = x;
         size += 1;
@@ -48,8 +63,8 @@ public class ArrayDeque<T> {
 
     /* Add element to the last of the ArrayDeque. */
     public void addLast(T x) {
-        if (ifResize(nextFirst)) {
-            resize(nextFirst);
+        if (ifResize()) {
+            resize();
         }
         nextLast = checkIfSwap(nextLast);
         items[nextLast] = x;
@@ -106,19 +121,18 @@ public class ArrayDeque<T> {
     }
 
 
-    private boolean ifResize(int i) {
-        return items[i] != null;
+    private boolean ifResize() {
+        return nextFirst == nextLast;
     }
 
-    private void resize(int i) {
-        double REFACTOR = 1.25;
-        double newSize = size * REFACTOR;
+    private void resize() {
+        double REFACTOR = 1.5;
+        double newSize = size + 2;
         T[] a = (T[]) new Object[(int) newSize];
-        System.arraycopy(items, 0, a, 0, i);
-        System.arraycopy(items, i, a, i + (int) newSize - size, size - i);
+        System.arraycopy(items, 0, a, 0, nextLast);
+        System.arraycopy(items, nextLast + 1, a, nextLast + (int) newSize - size, size - nextLast);
         items = a;
-        nextLast = i;
-        nextFirst = i + (int) newSize - size - 1;
+        nextFirst = nextLast + (int) newSize - size -1;
         return;
     }
 
