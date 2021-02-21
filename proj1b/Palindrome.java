@@ -17,31 +17,24 @@ public class Palindrome {
     /** Determine if a word is palindrome recursively. */
     public boolean isPalindrome(String word) {
         Deque wd = wordToDeque(word);
-        if (wd.size() > 10) {
-            return false;
-        }
         return isPalindromeHelper(wd);
     }
 
-    public boolean isPalindromeHelper(Deque d) {
+    private boolean isPalindromeHelper(Deque d) {
         if (d.isEmpty() || d.size() == 1) {
             return true;
         } else if (d.removeFirst() == d.removeLast()) {
             return isPalindromeHelper(d);
-//            String head = (String) d.removeFirst();
-//            String tail = (String) d.removeLast();
         }
         return false;
 
     }
 
     /** Determine if a word is palindrome iteratively. */
-    public boolean isPalindromeIteration(String word) {
+    private boolean isPalindromeIteration(String word) {
         double halfLen = word.length() / 2.0;
         if (word.length() <= 0) {
             return true;
-        } else if (word.length() > 10) {
-            return false;
         }
         for (int i = 0, j = word.length() - 1; i < halfLen; i++, j--) {
             if (word.charAt(i) != word.charAt(j)) {
@@ -55,13 +48,10 @@ public class Palindrome {
      * palindrome. */
     public boolean isPalindrome(String word, CharacterComparator cc) {
         Deque wd = wordToDeque(word);
-        if (wd.size() > 10) {
-            return false;
-        }
         return isPalindromeHelper(wd, cc);
     }
 
-    public boolean isPalindromeHelper(Deque d, CharacterComparator cc) {
+    private boolean isPalindromeHelper(Deque d, CharacterComparator cc) {
         if (d.isEmpty() || d.size() == 1) {
             return true;
         } else if (cc.equalChars((char) d.removeFirst(), (char) d.removeLast())) {
