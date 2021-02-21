@@ -8,7 +8,7 @@ public class TestOffByOne {
 
     @Test
     public void testIsPalindromeOffByOne() {
-        assertTrue(offByOne.equalChars('&','%'));
-        assertTrue(offByOne.equalChars('f','e'));
+        assertTrue(offByOne.equalChars('&', '%'));
+        assertTrue(offByOne.equalChars('f', 'e'));
     }
 }

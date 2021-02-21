@@ -43,9 +43,10 @@ public class Palindrome {
         } else if (word.length() > 10) {
             return false;
         }
-        for (int i = 0, j = word.length() - 1; i < halfLen; i++, j--)
+        for (int i = 0, j = word.length() - 1; i < halfLen; i++, j--) {
             if (word.charAt(i) != word.charAt(j)) {
                 return false;
+            }
         }
         return true;
     }
