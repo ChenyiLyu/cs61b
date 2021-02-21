@@ -2,10 +2,10 @@
  * of the nakedness within. */
 public class SLList<LochNess> {
     private class StuffNode {
-        public LochNess item;
-        public StuffNode next;
+        private LochNess item;
+        private StuffNode next;
 
-        public StuffNode(LochNess i, StuffNode n) {
+        StuffNode(LochNess i, StuffNode n) {
             item = i;
             next = n;
         }

@@ -6,6 +6,22 @@
  * @Rule:
  * note to me -
  * @refer to github
+ * 1. Draw a demo to clear up logic. 难点是想清楚AD延伸的
+ * 方向，运用data abstraction的思想写出plusone minusone这
+ * 两个methods很重要。同时，每一个add模块分为三步：在ptr
+ * 处添加item，size+1；移动ptr至下一个正确位置；check if resize；
+ * remove反之亦然。
+ * 2. Skeleton Array mapping to ArrayDeque.
+ * 3. resize down还不知道咋做。
+ *
+ * 知识点：
+ * generics syntax.
+ * private vs. public
+ * static vs. nonstatic
+ *
+ * the most annoying bug
+ * 怎么都整不好remove/add
+ *
  * */
 
 public class ArrayDeque<T> {
@@ -132,4 +148,5 @@ public class ArrayDeque<T> {
         return i - 1;
     }
 }
+
 

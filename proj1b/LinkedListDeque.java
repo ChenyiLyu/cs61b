@@ -1,6 +1,6 @@
 /**
  * LinkedListDeque
- * @author  Chenyi 02/17/2021
+ * @author  Chenyi 02/20/2021
  *
  * Sequence linked list that can be extended/contracted from both ends.
  *
@@ -14,7 +14,7 @@
  * rest for debugging.
  */
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
     private class IntNode {
         private T item;
         private IntNode prev;
@@ -50,51 +50,33 @@ public class LinkedListDeque<T> {
             addFirst((T) other.get(i));
         }
     }
-//    addLast((T) other.get(i))
-//    garbage 不需要recursion//
-//    ** Creat a deep copy of IntNode nodes.next
-//    private IntNode dequeCopyHelper(LinkedListDeque other, IntNode nodes) {
-//        if (nodes.next == other.sentinel) {
-//            return sentinel;
-//        } else if (nodes.next.next == sentinel) {
-//
-//        }
-//        return new IntNode(nodes, nodes.next.item, dequeCopyHelper(other, nodes.next));
-//    }
-//
 
-    /* Returns the number of items in the deque. */
+    @Override
     public int size() {
         return size;
     }
 
-    /* Adds an item of type T to the front of deque. */
+    @Override
     public void addFirst(T item) {
         sentinel.next = new IntNode(sentinel, item, sentinel.next);
         sentinel.next.next.prev = sentinel.next;
         size += 1;
     }
-
-    /* Adds an item of type T to the back of deque. */
+    @Override
     public void addLast(T item) {
         sentinel.prev = new IntNode(sentinel.prev, item, sentinel);
         sentinel.prev.prev.next = sentinel.prev;
         size += 1;
     }
 
-    /* Return true if deque is empty, false otherwise. */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    /* Print everything in the deque. */
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.println(get(i));
         }
     }
 
-    /* Get item at given index. */
+    @Override
     public T get(int index) {
         if (index >= size) {
             return null;
@@ -108,7 +90,7 @@ public class LinkedListDeque<T> {
         return p.item;
     }
 
-    /* Remove and return the item in the front of deque. */
+    @Override
     public T removeFirst() {
         if (sentinel.next == sentinel) {
             return null;
@@ -120,7 +102,7 @@ public class LinkedListDeque<T> {
         return removed;
     }
 
-    /* Remove and return the item at the last of deque. */
+    @Override
     public T removeLast() {
         if (sentinel.prev == sentinel) {
             return null;
@@ -147,9 +129,4 @@ public class LinkedListDeque<T> {
             return getRecurHelper(index - 1, lst.next);
         }
     }
-
-
-
-
 }
-
