@@ -107,7 +107,7 @@ public class ArrayDeque<T> {
     }
 
     private void expand() {
-        double newSize = size + 2;
+        double newSize = size * 2;
         T[] a = (T[]) new Object[(int) newSize];
         System.arraycopy(items, 0, a, 0, nextLast);
         System.arraycopy(items, nextLast + 1, a, nextLast + (int) newSize - size, size - nextLast);
