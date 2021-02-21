@@ -5,13 +5,7 @@
  * Sequence linked list that can be extended/contracted from both ends.
  *
  * note to me -
- * 1. null null null
- * 2. When using Java Generics, dont add cast T for subclass.
- * 3. add/romove method. Since this is the double ended linked list, you
- * have to make sure the nodes that both ends linked to are connected to
- * this new node.
- * 4. get to know the time distr of writing a program - 20% first + 80%
- * rest for debugging.
+ *
  */
 
 public class LinkedListDeque<T> implements Deque<T> {
@@ -27,7 +21,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
-
     private IntNode sentinel;
     private int size;
 
@@ -39,7 +32,6 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
 /* Create a deep copy of other. */
-
 //    why is this called the second constructor?
     public LinkedListDeque(LinkedListDeque other) {
         sentinel = new IntNode(null, null, null);

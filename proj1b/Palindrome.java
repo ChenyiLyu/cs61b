@@ -1,3 +1,8 @@
+/**
+ * Class helps to identify generalized Palindromes in English.
+ * @author Chenyi 2/21/2021
+ * */
+
 public class Palindrome {
 
     /** Put characters in word to deque. */
@@ -8,6 +13,8 @@ public class Palindrome {
         }
         return wd;
     }
+
+    /** Determine if a word is palindrome recursively. */
     public boolean isPalindrome(String word) {
         Deque wd = wordToDeque(word);
         if (wd.size() > 10) {
@@ -28,6 +35,7 @@ public class Palindrome {
 
     }
 
+    /** Determine if a word is palindrome iteratively. */
     public boolean isPalindromeIteration(String word) {
         double halfLen = word.length() / 2.0;
         if (word.length() <= 0) {
@@ -42,9 +50,23 @@ public class Palindrome {
         return true;
     }
 
-    public static void main(String[] args) {
-        double x = 7/2.0;
-        System.out.println(x);
+    /** A third public method to return true if a word is off-by-one
+     * palindrome. */
+    public boolean isPalindrome(String word, CharacterComparator cc) {
+        Deque wd = wordToDeque(word);
+        if (wd.size() > 10) {
+            return false;
+        }
+        return isPalindromeHelper(wd, cc);
+    }
+
+    public boolean isPalindromeHelper(Deque d, CharacterComparator cc) {
+        if (d.isEmpty() || d.size() == 1) {
+            return true;
+        } else if (cc.equalChars((char) d.removeFirst(), (char) d.removeLast())) {
+            return isPalindromeHelper(d, cc);
+        }
+        return false;
     }
 
 }
