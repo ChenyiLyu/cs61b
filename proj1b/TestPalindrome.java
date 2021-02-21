@@ -18,15 +18,23 @@ public class TestPalindrome {
 
     @Test
     public void testIsPalindrome() {
-        String w1 = "hooray";
-        String w2 = "";
-        String w3 = "b";
-        String w4 = "itssnowingiwantfriedchicken";
-        String w5 = "hannah";
-        assertFalse(palindrome.isPalindrome(w1));
-        assertTrue(palindrome.isPalindrome(w2));
-        assertTrue(palindrome.isPalindrome(w3));
-        assertFalse(palindrome.isPalindrome(w4));
-        assertTrue(palindrome.isPalindrome(w5));
+        assertFalse(palindrome.isPalindrome("hooray"));
+        assertTrue(palindrome.isPalindrome(""));
+        assertTrue(palindrome.isPalindrome("b"));
+        assertFalse(palindrome.isPalindrome("itssnowingiwantfriedchicken"));
+        assertTrue(palindrome.isPalindrome("hannah"));
     }
+
+    @Test
+    public void testEqualChars() {
+        CharacterComparator offByOne = new OffByOne();
+        Character x = 'a'; Character y = 'a';
+        assertFalse(offByOne.equalChars(x, y));
+        x = 'a'; y = 'b';
+        assertTrue(offByOne.equalChars(x, y));
+        x = '%'; y = '&';
+        assertTrue(offByOne.equalChars(x, y));
+    }
+
+
 }
