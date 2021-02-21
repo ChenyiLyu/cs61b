@@ -1,11 +1,7 @@
 /**
  * LinkedListDeque
  * @author  Chenyi 02/20/2021
- *
  * Sequence linked list that can be extended/contracted from both ends.
- *
- * note to me -
- *
  */
 
 public class LinkedListDeque<T> implements Deque<T> {
@@ -29,18 +25,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
-    }
-
-/* Create a deep copy of other. */
-//    why is this called the second constructor?
-    public LinkedListDeque(LinkedListDeque other) {
-        sentinel = new IntNode(null, null, null);
-        sentinel.prev = sentinel;
-        sentinel.next = sentinel;
-        size = 0;
-        for (int i = 0; i < other.size(); i++) {
-            addFirst((T) other.get(i));
-        }
     }
 
     @Override

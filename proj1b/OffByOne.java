@@ -9,17 +9,11 @@ public class OffByOne implements CharacterComparator {
      *  one. */
     @Override
     public boolean equalChars(char x, char y) {
-//        if (isAlphabetic(x) && isAlphabetic(y)) {
         int diff = Math.abs((int) x - (int) y);
         if (diff == 1) {
             return true;
         }
-//        }
         return false;
     }
-
-//    private boolean isAlphabetic(char c) {
-//        return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-//    }
 
 }
