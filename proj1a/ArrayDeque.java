@@ -1,9 +1,11 @@
+
 /**
  * ArrayDeque
  *
  * @auther  Chenyi Lyu 02/17/2021 debug 02/19/2021
  * @Rule:
  * note to me -
+ * @refer to github
  * */
 
 public class ArrayDeque<T> {
@@ -16,27 +18,9 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
-        nextFirst = -1;
+        nextFirst = 7;
         nextLast = 0;
     }
-
-//    public static <T> void main(String[] args) {
-//        ArrayDeque ad = new ArrayDeque();
-//        ad.addLast(1);
-//
-//        ad.addFirst(4);
-//        ad.removeFirst();
-//        ad.removeFirst();
-//        ad.addLast(9);
-//        ad.removeFirst();
-//        ad.addLast(20);
-//        ad.removeLast();
-//        ad.addLast(22);
-//
-//        T x = (T) ad.get(-1);
-//        System.out.println(x);
-//        ad.size();
-//    }
 
 /*    *//* Create an deep array copy of ArrayDeque. *//*
     public ArrayDeque(ArrayDeque other) {
@@ -48,25 +32,26 @@ public class ArrayDeque<T> {
         return size;
     }
 
-    /* Add element to the front of ArrayDeque. */public void addFirst(T x) {
-        nextFirst = checkIfSwap(nextFirst);
-        if (ifResize()) {
-            resize();
-        }
+    /* Add element to the front of ArrayDeque. */
+    public void addFirst(T x) {
         items[nextFirst] = x;
         size += 1;
-        nextFirst -= 1;
+        nextFirst = minusOne(nextFirst);
+
+        if (fillingUp()) {
+            expand();
+        }
     }
 
     /* Add element to the last of the ArrayDeque. */
     public void addLast(T x) {
-        if (ifResize()) {
-            resize();
-        }
-        nextLast = checkIfSwap(nextLast);
         items[nextLast] = x;
         size += 1;
-        nextLast += 1;
+        nextLast = plusOne(nextLast);
+
+        if (fillingUp()) {
+            expand();
+        }
     }
 
     /* Return True if ArrayDeque is empty. */
@@ -86,7 +71,7 @@ public class ArrayDeque<T> {
         if (index >= size || index < 0) {
             return null;
         }
-        index = nextFirst + 1 + index;
+        index = plusOne(nextFirst) + index;
         if (index >= items.length) {
             index -= items.length;
         }
@@ -97,46 +82,54 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T temp = items[checkIfSwap(nextFirst + 1)];
-        items[checkIfSwap(nextFirst + 1)] = null;
+        int removeThis = plusOne(nextFirst);
+        T removed = items[removeThis];
+        items[removeThis] = null;
         size -= 1;
-        nextFirst += 1;
-        return temp;
+        nextFirst = removeThis;
+        return removed;
     }
 
     public T removeLast() {
         if (isEmpty()) {
             return null;
         }
-        T temp = items[checkIfSwap(nextLast - 1)];
-        items[checkIfSwap(nextLast - 1)] = null;
+        int removeThis = minusOne(nextLast);
+        T removed = items[removeThis];
         size -= 1;
-        nextLast = checkIfSwap(nextLast - 1);
-        return temp;
+        nextLast = removeThis;
+        return removed;
     }
 
 
-    private boolean ifResize() {
+    private boolean fillingUp() {
         return nextFirst == nextLast;
     }
 
-    private void resize() {
+    private void expand() {
         double newSize = size + 2;
         T[] a = (T[]) new Object[(int) newSize];
         System.arraycopy(items, 0, a, 0, nextLast);
         System.arraycopy(items, nextLast + 1, a, nextLast + (int) newSize - size, size - nextLast);
         items = a;
-        nextFirst = nextLast + (int) newSize - size - 1;
-        return;
+        nextFirst = minusOne(nextLast + (int) newSize - size);
     }
 
-    private int checkIfSwap(int i) {
-        if (i == -1) {
-            return items.length - 1;
-        } else if (i >= items.length) {
+    /* plus one for input index, circle ahead to the head of array once
+    * hit the tail of the array. */
+    private int plusOne(int i) {
+        if (i == items.length - 1) {
             return 0;
         }
-        return i;
+        return i + 1;
+    }
+    /* minus one for input index, circle back to the tail of the array
+    * once hit the head of the array. */
+    private int minusOne(int i) {
+        if (i == 0) {
+            return items.length - 1;
+        }
+        return i - 1;
     }
 }
 
