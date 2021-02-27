@@ -10,7 +10,7 @@ public class TestArrayDequeGold {
     private static int randomTestRounds = 1000;
     /** @rule Test should randomly call StudentArrayDeque and ArrayDequeSolution.*/
     @Test
-    public void testAddRemove() {
+    public void RandomizedTesting() {
         StudentArrayDeque<Integer> sAD = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> mAD = new ArrayDequeSolution<>();
         for (int i = 0; i < randomTestRounds; i++) {
