@@ -16,22 +16,21 @@ public class TestArrayDequeGold {
         for (int i = 0; i < randomTestRounds; i++) {
             double seed = StdRandom.uniform();
             if (seed < 0.25 | sAD.isEmpty() | sAD.isEmpty()) {
-                operation = "addFirst("+ i +")";
+                operation = "addFirst(" + i + ")";
                 sAD.addFirst(i); mAD.addFirst(i);
             } else if (seed < 0.5) {
-                operation = "addLast("+ i +")";
+                operation = "addLast(" + i + ")";
                 sAD.addLast(i); mAD.addLast(i);
             } else if (seed < 0.75) {
                 Integer s = sAD.removeFirst(); Integer m = mAD.removeFirst();
-                assertEquals(message + "removeFirst(): "+ i, m, s);
-                operation = "removeFirst(): "+ i);
+                assertEquals(message + "removeFirst(): " + i, m, s);
+                operation = "removeFirst(): " + i;
             } else {
                 Integer s = sAD.removeLast(); Integer m = mAD.removeLast();
-                assertEquals(message + "removeLast(): "+ i, m, s);
-                operation = "removeLast(): "+ i);
+                assertEquals(message + "removeLast(): " + i, m, s);
+                operation = "removeLast(): " + i;
             }
             message += operation + "\n";
-
         }
     }
 
