@@ -23,11 +23,11 @@ public class TestArrayDequeGold {
                 sAD.addLast(i); mAD.addLast(i);
             } else if (seed < 0.75) {
                 Integer s = sAD.removeFirst(); Integer m = mAD.removeFirst();
-                assertEquals(message + "removeFirst(): " + i, m, s);
+                assertEquals(message + "removeFirst(): " + s, m, s);
                 operation = "removeFirst(): " + i;
             } else {
                 Integer s = sAD.removeLast(); Integer m = mAD.removeLast();
-                assertEquals(message + "removeLast(): " + i, m, s);
+                assertEquals(message + "removeLast(): " + s, m, s);
                 operation = "removeLast(): " + i;
             }
             message += operation + "\n";
