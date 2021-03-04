@@ -10,7 +10,7 @@ import huglife.Impassible;
 import huglife.Empty;
 
 /** Tests the plip class   
- *  @authr FIXME
+ *  @authr C.L.
  */
 
 public class TestPlip {
@@ -35,11 +35,18 @@ public class TestPlip {
     }
 
     @Test
+    /** Check returned Plip is not the same Plip which replicate method is operating on.
+     * Check when replicates, parent Plip keeps 50% energy while another 50% goes to offspring.*/
     public void testReplicate() {
+        Plip p = new Plip(2);
+        Plip o = p.replicate();
+        assertFalse(p == o);
+        assertEquals(1, p.energy(), 0.01);
+        assertEquals(1, p.energy(), 0.01);
 
     }
 
-    //@Test
+    @Test
     public void testChoose() {
         Plip p = new Plip(1.2);
         HashMap<Direction, Occupant> surrounded = new HashMap<Direction, Occupant>();
@@ -47,10 +54,6 @@ public class TestPlip {
         surrounded.put(Direction.BOTTOM, new Impassible());
         surrounded.put(Direction.LEFT, new Impassible());
         surrounded.put(Direction.RIGHT, new Impassible());
-
-        //You can create new empties with new Empty();
-        //Despite what the spec says, you cannot test for Cloruses nearby yet.
-        //Sorry!  
 
         Action actual = p.chooseAction(surrounded);
         Action expected = new Action(Action.ActionType.STAY);
