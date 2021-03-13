@@ -9,7 +9,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     private int last;
     /* Array for storing the buffer data. */
     private T[] rb;
-    private int counts;
+
     /**
      * Create a new ArrayRingBuffer with the given capacity.
      */
@@ -17,7 +17,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         rb = (T[]) new Object[capacity];
         first = 0;
         last = 0;
-        counts = 0;
+        fillCount = 0;
     }
 
     /**
@@ -31,7 +31,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             throw new RuntimeException("Ring Buffer Overflow");
         }
         rb[last] = x;
-        counts += 1;
+        fillCount += 1;
         last = plusOne(last);
     }
 
@@ -47,7 +47,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         }
         T temp = rb[first];
         rb[first] = null;
-        counts -= 1;
+        fillCount -= 1;
         first = plusOne(first);
         return temp;
     }
