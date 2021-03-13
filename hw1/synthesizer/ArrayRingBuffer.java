@@ -20,25 +20,15 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         counts = 0;
     }
 
-    @Override
-    public int capacity() {
-        return rb.length;
-    }
-
-    @Override
-    public int fillCount() {
-        return counts;
-    }
-
     /**
      * Adds x to the end of the ring buffer. If there is no room, then
-     * throw new RuntimeException("Ring buffer overflow"). Exceptions
+     * throw new RuntimeException("Ring Buffer Overflow"). Exceptions
      * covered Monday.
      */
     @Override
     public void enqueue(T x) {
         if (isFull()) {
-            throw new RuntimeException("Ring Buffer overflow");
+            throw new RuntimeException("Ring Buffer Overflow");
         }
         rb[last] = x;
         counts += 1;
@@ -53,7 +43,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     @Override
     public T dequeue() {
         if (isEmpty()) {
-            throw new RuntimeException("Ring Buffer underflow");
+            throw new RuntimeException("Ring Buffer Underflow");
         }
         T temp = rb[first];
         rb[first] = null;
@@ -68,7 +58,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     @Override
     public T peek() {
         if (isEmpty()) {
-            throw new RuntimeException("Ring Buffer underflow");
+            throw new RuntimeException("Ring Buffer Underflow");
         }
         return rb[first];
     }
@@ -107,7 +97,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     }
 
 
-    public boolean equals(ArrayRingBuffer o) {
+    private boolean equals(ArrayRingBuffer o) {
         Iterator thisIterator = this.iterator();
         Iterator oIterator = o.iterator();
         for (int i = 0; i < capacity(); i++) {
