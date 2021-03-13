@@ -48,6 +48,7 @@ public class TestPlip {
 
     @Test
     public void testChoose() {
+        /** Test out ActionType.Stay. */
         Plip p = new Plip(1.2);
         HashMap<Direction, Occupant> surrounded = new HashMap<Direction, Occupant>();
         surrounded.put(Direction.TOP, new Impassible());
