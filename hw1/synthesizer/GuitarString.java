@@ -24,6 +24,7 @@ public class GuitarString {
     public void pluck() {
         for (int i = 0; i < buffer.capacity(); i++) {
             double r = Math.random() - 0.5;
+            buffer.dequeue();
             buffer.enqueue(r);
         }
     }

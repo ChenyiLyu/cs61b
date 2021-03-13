@@ -6,14 +6,14 @@ public abstract class AbstractBoundedQueue<T> implements BoundedQueue<T> {
     protected int capacity;
     protected int fillCount;
 
+    /** Return the size of the buffer. */
     @Override
-    /** Returns if the buffer is empty */
     public int capacity() {
         return capacity;
     }
 
+    /** Return the items# currently in the buffer. */
     @Override
-    /** Returns if the buffer is full */
     public int fillCount() {
         return fillCount;
     }
