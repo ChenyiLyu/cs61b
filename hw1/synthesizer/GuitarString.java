@@ -13,7 +13,7 @@ public class GuitarString {
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        buffer = new ArrayRingBuffer((int) Math.round(SR/frequency));
+        buffer = new ArrayRingBuffer((int) Math.round(SR / frequency));
         for (int i = 0; i < buffer.capacity(); i++) {
             buffer.enqueue(0.0);
         }
