@@ -6,19 +6,20 @@ public class PercolationStats {
     private int nexp;
     private int ngrid;
     private Percolation sys;
-    private double[] frac = new double[nexp];
+    private PercolationFactory pf;
+    private double[] frac;
     private double mean;
     private double stddev;
     private double confidenceLow;
     private double confidenceHigh;
 
-
     /** Perform T independent experiments on an N-by-N grid. */
     public PercolationStats(int N, int T, PercolationFactory pf) {
         isInputValid(N, T);
-        sys = pf.make(20);
+        this.pf = pf;
         this.nexp = T;
         this.ngrid = N;
+        this.frac = new double[T];
         simulator();
     };
 
@@ -32,17 +33,21 @@ public class PercolationStats {
      * return an array of fraction of sites when the system percolates. */
     private void simulator() {
         for (int i = 0; i < nexp; i++) {
-            int r = StdRandom.uniform(ngrid);
-            int c = StdRandom.uniform(ngrid);
-            if (sys.isOpen(r, c)) {
-                i--;
+            sys = pf.make(ngrid);
+            while (!sys.percolates()) {
+                int r = StdRandom.uniform(ngrid);
+                int c = StdRandom.uniform(ngrid);
+                sys.open(r, c);
+                if (sys.numberOfOpenSites() == Math.pow(ngrid, 2)) {
+                    break;
+                }
             }
-            sys.open(r, c);
-            if (sys.percolates()) {
-                frac[i] = sys.numberOfOpenSites() / ngrid;
-                break;
-            }
+            frac[i] = (double) sys.numberOfOpenSites() / (double) Math.pow(ngrid, 2);
         }
+        mean = mean();
+        stddev = stddev();
+        confidenceHigh = confidenceHigh();
+        confidenceLow = confidenceLow();
     }
     /** Sample mean of percolation threshold. */
     public double mean() {

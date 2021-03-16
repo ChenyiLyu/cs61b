@@ -21,12 +21,15 @@ public class Percolation extends WeightedQuickUnionUF {
     /** 0 if the system percolates, 1 if not. */
     private int percolateFlag = 0;
     private int sentinelSite;
+    private WeightedQuickUnionUF connectedGrids;
+
 
     public Percolation(int N) {
         super(N * N + 1);
         this.N = N;
         sentinelSite = N * N;
         sites = new int[N * N];
+        connectedGrids = new WeightedQuickUnionUF(N * N + 1);
     }
 
 
@@ -57,9 +60,9 @@ public class Percolation extends WeightedQuickUnionUF {
 
         /** Fill the site if it is next to the ground or a full site. */
         if (row == 0) {
-            union(sentinelSite, site);
+            connectedGrids.union(sentinelSite, site);
         } else if (isNextToFullSite(row, col)) {
-            union(sentinelSite, site);
+            connectedGrids.union(sentinelSite, site);
         }
 
         /** For a newly filled site, if the site is located at the bottom,
@@ -100,7 +103,7 @@ public class Percolation extends WeightedQuickUnionUF {
             int r = e.r;
             int c = e.c;
             if (isOpen(r, c) && !isFull(r, c)) {
-                union(sentinelSite, xyTo1D(r, c));
+                connectedGrids.union(sentinelSite, xyTo1D(r, c));
                 if (r == N - 1) {
                     percolateFlag  = 1;
                 }
@@ -157,7 +160,7 @@ public class Percolation extends WeightedQuickUnionUF {
     public boolean isFull(int row, int col) {
         checkBoundsException(row, col);
         int site = xyTo1D(row, col);
-        return connected(sentinelSite, site);
+        return connectedGrids.connected(sentinelSite, site);
     }
 
     /** number of open sites. */

@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public class TestPercolation {
 
     @Test
-    public void testOpenFullPercolates(){
+    public void testOpenFullPercolates() {
         Percolation sys3x3 = new Percolation(3);
         sys3x3.open(1, 1);
         assertTrue(sys3x3.isOpen(1, 1));
@@ -16,10 +16,11 @@ public class TestPercolation {
 
         sys3x3.open(2, 1);
         assertTrue(sys3x3.percolates());
+        assertEquals(3, sys3x3.numberOfOpenSites());
     }
 
     @Test
-    public void testUpdateNeighborSites1(){
+    public void testUpdateNeighborSites1() {
         Percolation sys3x3 = new Percolation(3);
         sys3x3.open(0, 1);
         sys3x3.open(2, 1);
@@ -32,7 +33,7 @@ public class TestPercolation {
 
 
     @Test
-    public void updateBackWash(){
+    public void updateBackWash() {
         Percolation sys3x3 = new Percolation(3);
         sys3x3.open(0, 0);
         sys3x3.open(2, 0);
