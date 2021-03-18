@@ -1,5 +1,8 @@
 package lab9;
 
+import edu.princeton.cs.algs4.SET;
+
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -43,7 +46,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         if (key == null) {
             return 0;
         }
-
         int numBuckets = buckets.length;
         return Math.floorMod(key.hashCode(), numBuckets);
     }
@@ -53,19 +55,42 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+        if (! buckets[hash(key)].containsKey(key)) {
+            return null;
+        }
+        return buckets[hash(key)].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (buckets[hash(key)].containsKey(key)) {
+            size -= 1;
+        }
+        if (loadFactor() >= MAX_LF) {
+            resize();
+        }
+        buckets[hash(key)].put(key, value);
+        size += 1;
     }
 
+    private void resize() {
+        int newSize = buckets.length * 2;
+        ArrayMap[] newBuckets = new ArrayMap[newSize];
+        for (int i = 0; i < newBuckets.length; i++) {
+            newBuckets[i] = new ArrayMap<>();
+        }
+        for (int i = 0; i < buckets.length; i++) {
+            for (K key:buckets[i].keySet()) {
+                newBuckets[hash(key)].put(key, buckets[i].get(key));
+            }
+        }
+        buckets = newBuckets;
+    }
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
@@ -73,7 +98,11 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keyset = new HashSet<>();
+        for (int i = 0; i < buckets.length; i += 1) {
+            keyset.addAll(buckets[i].keySet());
+        }
+        return keyset;
     }
 
     /* Removes the mapping for the specified key from this map if exists.
