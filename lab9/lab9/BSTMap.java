@@ -1,5 +1,6 @@
 package lab9;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -9,14 +10,6 @@ import java.util.Set;
  * @author C.L.
  */
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
-
-    public static void main(String[] args) {
-        BSTMap<String, Integer> bstmap = new BSTMap<>();
-        bstmap.put("hello", 5);
-        bstmap.put("cat", 10);
-        bstmap.put("fish", 22);
-        bstmap.put("zebra", 90);
-    }
     private class Node {
         /* (K, V) pair stored in this Node. */
         private K key;
@@ -34,6 +27,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private Node root;  /* Root node of the tree. */
     private int size; /* The number of key-value pairs in the tree */
+    private Set<K> keyset = new HashSet<K>(); /* Store keys. */
 
     /* Creates an empty BSTMap. */
     public BSTMap() {
@@ -98,6 +92,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         Node pointer = root;
         root = putHelper(key, value, pointer);
         size += 1;
+        keyset.add(key);
     }
 
     /* Returns the number of key-value mappings in this map. */
@@ -111,8 +106,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-
-        throw new UnsupportedOperationException();
+        return keyset;
     }
 
     /** Removes KEY from the tree if present
@@ -121,8 +115,15 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public V remove(K key) {
+        if (!keyset.contains(key)) {
+            return null;
+        }
         throw new UnsupportedOperationException();
+
+//        Node pointer = root;
+//        V item = removeHelper(key, pointer);
     }
+
 
     /** Removes the key-value entry for the specified key only if it is
      *  currently mapped to the specified value.  Returns the VALUE removed,

@@ -1,7 +1,5 @@
 package lab9;
 
-import edu.princeton.cs.algs4.SET;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -55,7 +53,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        if (! buckets[hash(key)].containsKey(key)) {
+        if (!buckets[hash(key)].containsKey(key)) {
             return null;
         }
         return buckets[hash(key)].get(key);
