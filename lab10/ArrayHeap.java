@@ -27,24 +27,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node to the left of the node at i.
      */
     private static int leftIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return 2 * i;
     }
 
     /**
      * Returns the index of the node to the right of the node at i.
      */
     private static int rightIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return 2 * i + 1;
     }
 
     /**
      * Returns the index of the node that is the parent of the node at i.
      */
     private static int parentIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        if (i % 2 == 0) {
+            return i / 2;
+        }
+        return (i - 1) / 2;
     }
 
     /**
@@ -107,8 +107,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
-        return;
+        while (index > 1 && getNode(index).priority() < getNode(parentIndex(index)).priority()) {
+            swap(index, parentIndex(index));
+            index = parentIndex(index);
+        }
     }
 
     /**
@@ -117,9 +119,27 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void sink(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
+        if (2 * index <= size &&
+                index * 2 + 1 > size) {
+            if (getNode(index).priority() > getNode(leftIndex(index)).priority()) {
+                swap(index, leftIndex(index));
+                return;
+            }
+            return;
+        }
 
-        /** TODO: Your code here. */
-        return;
+        while (2 * index <= size && (
+                getNode(index).priority() > getNode(leftIndex(index)).priority() ||
+                getNode(index).priority() > getNode(rightIndex(index)).priority())) {
+            if (getNode(leftIndex(index)).priority() < getNode(rightIndex(index)).priority()) {
+                swap(index, leftIndex(index));
+                index = leftIndex(index);
+            } else if (getNode(rightIndex(index)).priority() < getNode(leftIndex(index)).priority()) {
+                swap(index, rightIndex(index));
+                index = rightIndex(index);
+            }
+        }
+
     }
 
     /**
@@ -133,7 +153,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             resize(contents.length * 2);
         }
 
-        /* TODO: Your code here! */
+        Node node = new Node(item, priority);
+        contents[size + 1] = node;
+        size += 1;
+        swim(size);
     }
 
     /**
@@ -142,8 +165,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
-        /* TODO: Your code here! */
-        return null;
+        return contents[1].myItem;
     }
 
     /**
@@ -157,8 +179,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
-        /* TODO: Your code here! */
-        return null;
+        T minItem = peek();
+        swap(1, size);
+        contents[size] = null;
+        size -= 1;
+        sink(1);
+        return minItem;
     }
 
     /**
@@ -180,7 +206,26 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /* TODO: Your code here! */
+        /** Retrieve the item index. If the heap does not contain the item, don't change anything. */
+        int itemIndex = 0;
+        double oPriority = 0;
+        for (int i = 1; i < size; i++) {
+            if (contents[i].myItem.equals(item)) {
+                itemIndex = i;
+                oPriority = contents[i].myPriority;
+                break;
+            }
+        }
+        if (itemIndex == 0) {
+            return;
+        }
+
+        contents[itemIndex] = new Node(item, priority);
+        if (priority < oPriority) {
+            swim(itemIndex);
+        } else if (priority > oPriority) {
+            sink(itemIndex);
+        }
         return;
     }
 
