@@ -119,19 +119,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void sink(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-        if (2 * index <= size
-                && index * 2 + 1 > size) {
-            if (getNode(index).priority() > getNode(leftIndex(index)).priority()) {
-                swap(index, leftIndex(index));
-                return;
-            }
-            return;
-        }
 
-        while (2 * index <= size && (
-                getNode(index).priority() > getNode(leftIndex(index)).priority()
-                        || getNode(index).priority() > getNode(rightIndex(index)).priority())) {
-            if (getNode(leftIndex(index)).priority() < getNode(rightIndex(index)).priority()) {
+
+        while (2 * index <= size) {
+
+            if (index * 2 + 1 > size) {
+                if (getNode(index).priority() < getNode(leftIndex(index)).priority()) {
+                    break;
+                }
+                swap(index, leftIndex(index));
+                break;
+            }
+
+            if (getNode(index).priority() < getNode(leftIndex(index)).priority()
+                && getNode(index).priority() < getNode(rightIndex(index)).priority()) {
+                break;
+            }
+
+            if (getNode(leftIndex(index)).priority() <= getNode(rightIndex(index)).priority()) {
                 swap(index, leftIndex(index));
                 index = leftIndex(index);
             } else if (getNode(rightIndex(index)).priority()
@@ -269,7 +274,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             throw new IllegalArgumentException("Cannot sink or swim nodes with index 0 or less");
         }
         if (index > size) {
-            throw new IllegalArgumentException("Cannot sink or swim nodes with index greater than current size.");
+            throw new IllegalArgumentException("Cannot sink or swim nodes with index "
+                    + "greater than current size.");
         }
         if (contents[index] == null) {
             throw new IllegalArgumentException("Cannot sink or swim a null node.");
