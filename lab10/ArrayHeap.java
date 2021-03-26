@@ -123,6 +123,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         /** Sink if the node has not yet reach the bottom.*/
         while (2 * index <= size) {
 
+            /** the node have only one left child.*/
             /** When the node only have left leave,
              * sink the node and return if the left priority is smaller.
              * Otherwise, the node have sank down to its position.*/
@@ -134,6 +135,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
                 break;
             }
 
+            /** the node have two children.*/
             /** if the node is larger than two children, return.*/
             if (getNode(index).priority() < getNode(leftIndex(index)).priority()
                 && getNode(index).priority() < getNode(rightIndex(index)).priority()) {
