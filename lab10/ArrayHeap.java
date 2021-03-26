@@ -119,8 +119,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void sink(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-        if (2 * index <= size &&
-                index * 2 + 1 > size) {
+        if (2 * index <= size
+                && index * 2 + 1 > size) {
             if (getNode(index).priority() > getNode(leftIndex(index)).priority()) {
                 swap(index, leftIndex(index));
                 return;
@@ -129,12 +129,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         while (2 * index <= size && (
-                getNode(index).priority() > getNode(leftIndex(index)).priority() ||
-                getNode(index).priority() > getNode(rightIndex(index)).priority())) {
+                getNode(index).priority() > getNode(leftIndex(index)).priority()
+                        || getNode(index).priority() > getNode(rightIndex(index)).priority())) {
             if (getNode(leftIndex(index)).priority() < getNode(rightIndex(index)).priority()) {
                 swap(index, leftIndex(index));
                 index = leftIndex(index);
-            } else if (getNode(rightIndex(index)).priority() < getNode(leftIndex(index)).priority()) {
+            } else if (getNode(rightIndex(index)).priority()
+                    < getNode(leftIndex(index)).priority()) {
                 swap(index, rightIndex(index));
                 index = rightIndex(index);
             }
@@ -206,7 +207,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /** Retrieve the item index. If the heap does not contain the item, don't change anything. */
+        /** Retrieve the item index.
+         * If the heap does not contain the item, don't change anything. */
         int itemIndex = 0;
         double oPriority = 0;
         for (int i = 1; i < size; i++) {
@@ -283,7 +285,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             myPriority = priority;
         }
 
-        public T item(){
+        public T item() {
             return myItem;
         }
 
