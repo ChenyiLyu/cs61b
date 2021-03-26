@@ -120,9 +120,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-
+        /** Sink if the node has not yet reach the bottom.*/
         while (2 * index <= size) {
 
+            /** When the node only have left leave,
+             * sink the node and return if the left priority is smaller.
+             * Otherwise, the node have sank down to its position.*/
             if (index * 2 + 1 > size) {
                 if (getNode(index).priority() < getNode(leftIndex(index)).priority()) {
                     break;
@@ -131,11 +134,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
                 break;
             }
 
+            /** if the node is larger than two children, return.*/
             if (getNode(index).priority() < getNode(leftIndex(index)).priority()
                 && getNode(index).priority() < getNode(rightIndex(index)).priority()) {
                 break;
             }
 
+            /** if not in the above cases, meaning the node is bigger than at least one
+             * of its child, then sink the parent to the smaller side. */
             if (getNode(leftIndex(index)).priority() <= getNode(rightIndex(index)).priority()) {
                 swap(index, leftIndex(index));
                 index = leftIndex(index);
